@@ -14,16 +14,203 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      events: {
+        Row: {
+          cover_url: string | null
+          created_at: string
+          description: string | null
+          event_date: string
+          id: string
+          is_external: boolean
+          link: string | null
+          location: string | null
+          program_id: string | null
+          title: string
+        }
+        Insert: {
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          event_date: string
+          id?: string
+          is_external?: boolean
+          link?: string | null
+          location?: string | null
+          program_id?: string | null
+          title: string
+        }
+        Update: {
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          event_date?: string
+          id?: string
+          is_external?: boolean
+          link?: string | null
+          location?: string | null
+          program_id?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      members: {
+        Row: {
+          bio: string | null
+          board_position: Database["public"]["Enums"]["board_position"] | null
+          created_at: string
+          id: string
+          name: string
+          photo_url: string | null
+          program_id: string | null
+          role: string
+          socials: Json
+          sort_order: number
+        }
+        Insert: {
+          bio?: string | null
+          board_position?: Database["public"]["Enums"]["board_position"] | null
+          created_at?: string
+          id?: string
+          name: string
+          photo_url?: string | null
+          program_id?: string | null
+          role: string
+          socials?: Json
+          sort_order?: number
+        }
+        Update: {
+          bio?: string | null
+          board_position?: Database["public"]["Enums"]["board_position"] | null
+          created_at?: string
+          id?: string
+          name?: string
+          photo_url?: string | null
+          program_id?: string | null
+          role?: string
+          socials?: Json
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "members_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partners: {
+        Row: {
+          created_at: string
+          id: string
+          logo_url: string | null
+          name: string
+          sort_order: number
+          website: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name: string
+          sort_order?: number
+          website?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name?: string
+          sort_order?: number
+          website?: string | null
+        }
+        Relationships: []
+      }
+      programs: {
+        Row: {
+          color: string | null
+          cover_url: string | null
+          created_at: string
+          description: string | null
+          icon: string | null
+          id: string
+          name: string
+          short_description: string | null
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          color?: string | null
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name: string
+          short_description?: string | null
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          color?: string | null
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name?: string
+          short_description?: string | null
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "member"
+      board_position: "president" | "vice_president" | "director" | "member"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +337,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "member"],
+      board_position: ["president", "vice_president", "director", "member"],
+    },
   },
 } as const
