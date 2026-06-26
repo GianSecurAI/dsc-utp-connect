@@ -42,7 +42,9 @@ function ProyectosPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
-      <span className="font-mono text-xs uppercase tracking-widest text-white/50">[P] Proyectos</span>
+      <span className="font-mono text-xs uppercase tracking-widest text-white/50">
+        [P] Proyectos
+      </span>
       <h1 className="mt-3 text-5xl font-extrabold tracking-tight text-white md:text-6xl">
         Proyectos
       </h1>
@@ -74,7 +76,10 @@ function ProyectosPage() {
           ))}
           {(statusFilter || query) && (
             <button
-              onClick={() => { setStatusFilter(""); setQuery(""); }}
+              onClick={() => {
+                setStatusFilter("");
+                setQuery("");
+              }}
               className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/50 hover:text-white"
             >
               Limpiar filtros

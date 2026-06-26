@@ -5,7 +5,8 @@ export const programs: Program[] = [
     id: "1",
     slug: "google-nexus",
     name: "Google Nexus",
-    short_description: "Servicios de Google, GCP, Flutter, Angular y tecnologías del ecosistema Google.",
+    short_description:
+      "Servicios de Google, GCP, Flutter, Angular y tecnologías del ecosistema Google.",
     description:
       "Exploramos el ecosistema tecnológico de Google: desde desarrollo móvil y web con Flutter y Angular, hasta infraestructura en la nube con Google Cloud Platform. Trabajamos con Firebase, APIs de Google y herramientas como Google Workspace para construir proyectos reales con tecnología de clase mundial.",
     color: "#4285F4",

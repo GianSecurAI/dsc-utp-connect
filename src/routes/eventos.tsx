@@ -13,7 +13,10 @@ export const Route = createFileRoute("/eventos")({
   head: () => ({
     meta: [
       { title: "Eventos — DSC UTP" },
-      { name: "description", content: "Todos los eventos de DSC UTP: workshops, hackatones, summits y más." },
+      {
+        name: "description",
+        content: "Todos los eventos de DSC UTP: workshops, hackatones, summits y más.",
+      },
     ],
   }),
   component: EventsPage,
@@ -40,7 +43,11 @@ function EventsPage() {
 
   const toggle = (id: string) => {
     const next = new Set(selected);
-    next.has(id) ? next.delete(id) : next.add(id);
+    if (next.has(id)) {
+      next.delete(id);
+    } else {
+      next.add(id);
+    }
     setSelected(next);
   };
 
@@ -106,7 +113,9 @@ function EventsPage() {
 
       <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filtered.length === 0 ? (
-          <p className="col-span-full text-white/50">No hay eventos que coincidan con los filtros.</p>
+          <p className="col-span-full text-white/50">
+            No hay eventos que coincidan con los filtros.
+          </p>
         ) : (
           filtered.map((e) => (
             <EventCard
