@@ -1,0 +1,30 @@
+name: Agregar oferta laboral
+description: Publicar una oferta de empleo tech
+title: "[Empleo] "
+labels: ["jules"]
+body:
+  - type: input
+    id: job_url
+    attributes:
+      label: Link de la oferta
+      placeholder: "https://linkedin.com/jobs/..."
+    validations:
+      required: true
+
+  - type: input
+    id: company
+    attributes:
+      label: Empresa
+      placeholder: "ej. Google"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmaciones
+      options:
+        - label: La oferta está activa y vigente
+          required: true
+        - label: La oferta es para el sector tecnológico
+          required: true

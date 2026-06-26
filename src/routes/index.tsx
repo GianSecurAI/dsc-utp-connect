@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
   loader: ({ context }) =>
     context.queryClient.ensureQueryData({
       queryKey: ["landing"],
-      queryFn: () => getLandingData(),
+      queryFn: getLandingData,
     }),
   component: Index,
 });
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { data } = useSuspenseQuery({
     queryKey: ["landing"],
-    queryFn: () => getLandingData(),
+    queryFn: getLandingData,
   });
 
   const programsById = new Map(data.programs.map((p) => [p.id, p]));
@@ -28,7 +28,7 @@ function Index() {
       <section className="mx-auto grid max-w-7xl items-center gap-10 px-6 pt-16 pb-20 md:grid-cols-2 md:pt-24 md:pb-28">
         <div>
           <span className="inline-block rounded-md border border-white/15 bg-white/5 px-2 py-1 font-mono text-xs text-white/70">
-            [DSC] · UTP · Lima, Perú
+            [DSC UTP] · Lima, Perú
           </span>
           <h1 className="mt-5 text-5xl font-extrabold leading-[1.05] tracking-tight text-white md:text-7xl">
             Developer<br />Student Clubs<br />
@@ -95,10 +95,12 @@ function Index() {
         <div className="flex items-end justify-between">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-white/50">[P] Nuestros Programas</span>
-            <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Seis caminos para crecer.</h2>
+            <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
+              {data.programs.length} programas para crecer.
+            </h2>
           </div>
         </div>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {data.programs.map((p) => (
             <ProgramCard key={p.id} program={p} />
           ))}
@@ -109,7 +111,7 @@ function Index() {
       <section className="mx-auto max-w-7xl px-6 py-20">
         <span className="font-mono text-xs uppercase tracking-widest text-white/50">[J] Junta Directiva</span>
         <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Los que mueven la comunidad.</h2>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {data.board.map((m) => (
             <MemberCard
               key={m.id}

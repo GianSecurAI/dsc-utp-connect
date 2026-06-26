@@ -1,34 +1,24 @@
 import { Link } from "@tanstack/react-router";
+import dscLogo from "@/assets/dsc-logo.png";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-white text-[oklch(0.28_0.22_268)] font-mono text-xs font-bold">
-            DSC
-          </span>
-          <span className="font-mono text-sm tracking-tight text-white/90">
-            DSC <span className="text-white/50">/</span> UTP
+    <header
+      className="sticky top-0 z-40 border-b border-white/10 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70"
+    >
+      <div className="mx-auto flex h-14 max-w-[90rem] items-center justify-between px-6">
+        <Link to="/" className="flex flex-shrink-0 items-center gap-2.5">
+          <img src={dscLogo} alt="" className="h-7 w-auto" aria-hidden="true" />
+          <span className="text-[17px] font-bold tracking-tight text-white">
+            DSC <span className="text-accent">UTP</span>
           </span>
         </Link>
         <nav className="hidden items-center gap-1 md:flex">
           <NavLink to="/" tag="H">Inicio</NavLink>
           <NavLink to="/eventos" tag="E">Eventos</NavLink>
-          <a
-            href="#programas"
-            className="group inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-white/70 transition hover:text-white"
-          >
-            <span className="font-mono text-[11px] text-white/40 group-hover:text-white/70">[P]</span>
-            Programas
-          </a>
-          <a
-            href="#aliados"
-            className="group inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-white/70 transition hover:text-white"
-          >
-            <span className="font-mono text-[11px] text-white/40 group-hover:text-white/70">[A]</span>
-            Aliados
-          </a>
+          <NavLink to="/empleos" tag="T">Empleos</NavLink>
+          <NavLink to="/proyectos" tag="P">Proyectos</NavLink>
+          <NavLink to="/comunidades" tag="C">Comunidades</NavLink>
         </nav>
         <a
           href="#programas"

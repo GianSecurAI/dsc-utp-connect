@@ -8,7 +8,7 @@ export const Route = createFileRoute("/eventos")({
   loader: ({ context }) =>
     context.queryClient.ensureQueryData({
       queryKey: ["all-events"],
-      queryFn: () => getAllEvents(),
+      queryFn: getAllEvents,
     }),
   head: () => ({
     meta: [
@@ -20,11 +20,12 @@ export const Route = createFileRoute("/eventos")({
 });
 
 function EventsPage() {
-  const { data } = useSuspenseQuery({ queryKey: ["all-events"], queryFn: () => getAllEvents() });
+  const { data } = useSuspenseQuery({ queryKey: ["all-events"], queryFn: getAllEvents });
   const programsById = useMemo(() => new Map(data.programs.map((p) => [p.id, p])), [data.programs]);
 
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [externalOnly, setExternalOnly] = useState(false);
+  const [typeFilter, setTypeFilter] = useState<string>("");
   const [query, setQuery] = useState("");
 
   const filtered = data.events.filter((e) => {
@@ -32,6 +33,7 @@ function EventsPage() {
     if (selected.size > 0) {
       if (!e.program_id || !selected.has(e.program_id)) return false;
     }
+    if (typeFilter && e.type !== typeFilter) return false;
     if (query && !e.title.toLowerCase().includes(query.toLowerCase())) return false;
     return true;
   });

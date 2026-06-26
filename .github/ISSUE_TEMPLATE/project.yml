@@ -1,0 +1,112 @@
+name: Agregar proyecto
+description: Publicar un proyecto desarrollado por miembros de DSC UTP
+title: "[Proyecto] "
+labels: ["jules"]
+body:
+  - type: input
+    id: project_name
+    attributes:
+      label: Nombre del proyecto
+      placeholder: "ej. DSC Connect"
+    validations:
+      required: true
+
+  - type: input
+    id: repo_url
+    attributes:
+      label: Repositorio GitHub
+      placeholder: "https://github.com/dsc-utp/..."
+    validations:
+      required: true
+
+  - type: input
+    id: demo_url
+    attributes:
+      label: URL de demo (opcional)
+      placeholder: "https://..."
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Resumen corto
+      description: "Una línea que describa el proyecto (máx. 150 caracteres)"
+      placeholder: "Plataforma web para conectar a los miembros de DSC UTP..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descripción completa
+      description: "Explica el proyecto con más detalle: qué problema resuelve, cómo funciona, decisiones técnicas relevantes."
+      placeholder: "Este proyecto nació de la necesidad de..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: members
+    attributes:
+      label: Integrantes del equipo
+      description: "Un integrante por línea con el formato exacto: Nombre Completo | Rol"
+      placeholder: |
+        Juan Pérez | Líder de proyecto
+        María López | Developer
+        Carlos Ruiz | Designer
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tecnologías utilizadas
+      description: "Separadas por coma, en minúsculas, máximo 5"
+      placeholder: "react, typescript, tailwindcss, cloudflare"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: program_id
+    attributes:
+      label: Programa DSC asociado
+      description: "Selecciona el programa de DSC UTP con el que se relaciona este proyecto"
+      options:
+        - "1 — DSC Web"
+        - "2 — DSC Mobile"
+        - "3 — DSC Cloud"
+        - "4 — DSC AI & Data"
+        - "5 — DSC Security"
+        - "6 — DSC Design"
+        - "Sin programa específico"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Estado actual del proyecto
+      options:
+        - activo
+        - completado
+        - pausado
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: Año de inicio del proyecto
+      placeholder: "2025"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmaciones
+      options:
+        - label: Soy miembro activo de DSC UTP o el proyecto fue desarrollado dentro del club
+          required: true
+        - label: El repositorio es público y accesible desde el link proporcionado
+          required: true
+        - label: He verificado que el proyecto no está duplicado en la plataforma
+          required: true

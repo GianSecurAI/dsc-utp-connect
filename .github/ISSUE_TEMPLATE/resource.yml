@@ -1,0 +1,39 @@
+name: Agregar recurso
+description: Sugerir un recurso, herramienta o material educativo
+title: "[Recurso] "
+labels: ["jules"]
+body:
+  - type: input
+    id: resource_url
+    attributes:
+      label: URL del recurso
+      placeholder: "https://..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Categoría
+      options:
+        - Documentación
+        - Herramienta
+        - Curso
+        - Libro
+        - Podcast
+        - Newsletter
+        - Blog
+        - Video
+        - Repositorio
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmaciones
+      options:
+        - label: He verificado que el recurso no está duplicado
+          required: true
+        - label: El recurso es relevante para la comunidad tech
+          required: true

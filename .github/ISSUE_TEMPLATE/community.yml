@@ -1,0 +1,30 @@
+name: Agregar comunidad
+description: Registrar una comunidad tecnológica
+title: "[Comunidad] "
+labels: ["jules"]
+body:
+  - type: input
+    id: community_website
+    attributes:
+      label: Website o link principal
+      placeholder: "https://..."
+    validations:
+      required: true
+
+  - type: input
+    id: community_name
+    attributes:
+      label: Nombre de la comunidad
+      placeholder: "ej. GDG Lima"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmaciones
+      options:
+        - label: He verificado que la comunidad no está duplicada
+          required: true
+        - label: La comunidad está activa actualmente
+          required: true

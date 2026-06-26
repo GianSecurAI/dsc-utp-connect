@@ -1,0 +1,47 @@
+name: Agregar evento
+description: Proponer un nuevo evento para la comunidad
+title: "[Evento] "
+labels: ["jules"]
+body:
+  - type: input
+    id: event_url
+    attributes:
+      label: Link del evento o registro
+      placeholder: "https://eventbrite.com/..."
+    validations:
+      required: true
+
+  - type: input
+    id: organizer
+    attributes:
+      label: Organizador
+      placeholder: "ej. AWS User Group Lima"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: region
+    attributes:
+      label: Región
+      options:
+        - Lima
+        - Arequipa
+        - Cusco
+        - Trujillo
+        - Piura
+        - Internacional
+        - Otra
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmaciones
+      options:
+        - label: He verificado que el evento no está duplicado
+          required: true
+        - label: La información es correcta y está actualizada
+          required: true
+        - label: El evento tiene al menos una imagen disponible
+          required: true

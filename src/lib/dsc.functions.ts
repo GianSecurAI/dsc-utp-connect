@@ -1,5 +1,23 @@
-import { createServerFn } from "@tanstack/react-start";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { programs } from "@/data/programs";
+import { members } from "@/data/members";
+import { partners } from "@/data/partners";
+import { events } from "@/data/events";
+import { jobs } from "@/data/jobs";
+import { projects } from "@/data/projects";
+import { communities } from "@/data/communities";
+
+import type { IEvent } from "@/models/event.model";
+import type { IJob } from "@/models/job.model";
+import type { IProject } from "@/models/project.model";
+import type { ICommunity } from "@/models/community.model";
+
+// ── Re-exportar modelos ──────────────────────────────────────────────────────
+
+export type { IEvent, IJob, IProject, ICommunity };
+export type { IEventImage, ImageAspectRatio } from "@/models/event.model";
+export type { ProjectStatus, IProjectMember } from "@/models/project.model";
+
+// ── Tipos internos del proyecto ──────────────────────────────────────────────
 
 export type Program = {
   id: string;
@@ -20,7 +38,7 @@ export type Member = {
   bio: string | null;
   photo_url: string | null;
   socials: Record<string, string>;
-  board_position: "president" | "vice_president" | "director" | "member" | null;
+  board_position: "president" | "vice_president" | "chief_of_staff" | "member" | null;
   program_id: string | null;
   sort_order: number;
 };
@@ -33,82 +51,76 @@ export type Partner = {
   sort_order: number;
 };
 
-export type EventItem = {
-  id: string;
-  title: string;
-  description: string | null;
-  event_date: string;
-  location: string | null;
-  cover_url: string | null;
-  link: string | null;
-  program_id: string | null;
-  is_external: boolean;
-};
+// Mantener compatibilidad con código existente
+export type EventItem = IEvent;
 
-const PROGRAM_COLS = "id, slug, name, short_description, description, color, icon, cover_url, sort_order";
-const MEMBER_COLS = "id, name, role, bio, photo_url, socials, board_position, program_id, sort_order";
-const PARTNER_COLS = "id, name, logo_url, website, sort_order";
-const EVENT_COLS = "id, title, description, event_date, location, cover_url, link, program_id, is_external";
+// ── Funciones de datos (sin backend) ─────────────────────────────────────────
 
-export const getLandingData = createServerFn({ method: "GET" }).handler(async () => {
-  const [programsRes, membersRes, partnersRes, eventsRes] = await Promise.all([
-    supabaseAdmin.from("programs").select(PROGRAM_COLS).order("sort_order"),
-    supabaseAdmin.from("members").select(MEMBER_COLS).not("board_position", "is", null).order("sort_order"),
-    supabaseAdmin.from("partners").select(PARTNER_COLS).order("sort_order"),
-    supabaseAdmin.from("events").select(EVENT_COLS).gte("event_date", new Date().toISOString()).order("event_date").limit(6),
-  ]);
-
-  if (programsRes.error) throw programsRes.error;
-  if (membersRes.error) throw membersRes.error;
-  if (partnersRes.error) throw partnersRes.error;
-  if (eventsRes.error) throw eventsRes.error;
+export function getLandingData() {
+  const now = new Date().toISOString().slice(0, 10);
+  const MAIN_BOARD: Member["board_position"][] = ["president", "vice_president", "chief_of_staff"];
+  const board = members
+    .filter((m) => m.board_position !== null && MAIN_BOARD.includes(m.board_position))
+    .sort((a, b) => a.sort_order - b.sort_order);
+  const upcomingEvents = events
+    .filter((e) => e.date >= now)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .slice(0, 6);
 
   return {
-    programs: (programsRes.data ?? []) as Program[],
-    board: (membersRes.data ?? []) as Member[],
-    partners: (partnersRes.data ?? []) as Partner[],
-    upcomingEvents: (eventsRes.data ?? []) as EventItem[],
+    programs: [...programs].sort((a, b) => a.sort_order - b.sort_order),
+    board,
+    partners: [...partners].sort((a, b) => a.sort_order - b.sort_order),
+    upcomingEvents,
   };
-});
+}
 
-export const getProgramBySlug = createServerFn({ method: "GET" })
-  .inputValidator((input: { slug: string }) => input)
-  .handler(async ({ data }) => {
-    const programRes = await supabaseAdmin
-      .from("programs")
-      .select(PROGRAM_COLS)
-      .eq("slug", data.slug)
-      .maybeSingle();
+export function getProgramBySlug(slug: string) {
+  const program = programs.find((p) => p.slug === slug) ?? null;
+  if (!program) return null;
 
-    if (programRes.error) throw programRes.error;
-    if (!programRes.data) return null;
+  const programMembers = members
+    .filter((m) => m.program_id === program.id)
+    .sort((a, b) => a.sort_order - b.sort_order);
 
-    const program = programRes.data as Program;
+  const programEvents = events
+    .filter((e) => e.program_id === program.id)
+    .sort((a, b) => b.date.localeCompare(a.date));
 
-    const [membersRes, eventsRes] = await Promise.all([
-      supabaseAdmin.from("members").select(MEMBER_COLS).eq("program_id", program.id).order("sort_order"),
-      supabaseAdmin.from("events").select(EVENT_COLS).eq("program_id", program.id).order("event_date", { ascending: false }),
-    ]);
+  const programProjects = projects
+    .filter((p) => p.program_id === program.id)
+    .sort((a, b) => b.year - a.year || a.name.localeCompare(b.name));
 
-    if (membersRes.error) throw membersRes.error;
-    if (eventsRes.error) throw eventsRes.error;
+  return { program, members: programMembers, events: programEvents, projects: programProjects };
+}
 
-    return {
-      program,
-      members: (membersRes.data ?? []) as Member[],
-      events: (eventsRes.data ?? []) as EventItem[],
-    };
-  });
-
-export const getAllEvents = createServerFn({ method: "GET" }).handler(async () => {
-  const [eventsRes, programsRes] = await Promise.all([
-    supabaseAdmin.from("events").select(EVENT_COLS).order("event_date", { ascending: false }),
-    supabaseAdmin.from("programs").select(PROGRAM_COLS).order("sort_order"),
-  ]);
-  if (eventsRes.error) throw eventsRes.error;
-  if (programsRes.error) throw programsRes.error;
+export function getAllEvents() {
   return {
-    events: (eventsRes.data ?? []) as EventItem[],
-    programs: (programsRes.data ?? []) as Program[],
+    events: [...events].sort((a, b) => b.date.localeCompare(a.date)),
+    programs: [...programs].sort((a, b) => a.sort_order - b.sort_order),
   };
-});
+}
+
+// ── Nuevas funciones para secciones adicionales ──────────────────────────────
+
+export function getAllJobs() {
+  const now = new Date().toISOString().slice(0, 10);
+  return {
+    jobs: [...jobs]
+      .filter((j) => !j.expires_date || j.expires_date >= now)
+      .sort((a, b) => b.posted_date.localeCompare(a.posted_date)),
+  };
+}
+
+export function getAllProjects() {
+  return {
+    projects: [...projects].sort((a, b) => b.year - a.year || a.name.localeCompare(b.name)),
+    programs: [...programs].sort((a, b) => a.sort_order - b.sort_order),
+  };
+}
+
+export function getAllCommunities() {
+  return {
+    communities: [...communities].sort((a, b) => a.name.localeCompare(b.name)),
+  };
+}
