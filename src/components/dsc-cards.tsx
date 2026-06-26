@@ -6,52 +6,62 @@ import type { EventItem, Program, IJob, IProject, ICommunity } from "@/lib/dsc.f
 export function EventCard({ event, program }: { event: EventItem; program?: Program }) {
   const date = new Date(event.date + "T00:00:00");
   return (
-    <article className="group flex flex-col rounded-xl border border-white/10 bg-surface p-5 transition hover:border-white/30 hover:bg-surface-2">
-      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-white/50">
-        <span>
-          {date.toLocaleDateString("es-PE", { day: "2-digit", month: "short", year: "numeric" })}
-        </span>
-        {event.time !== "00:00" && <span>· {event.time}</span>}
-        {event.is_external && (
-          <span className="rounded-sm bg-accent/20 px-1.5 py-0.5 text-accent">[EXTERNO]</span>
-        )}
-        {program && (
-          <span className="rounded-sm border border-white/15 px-1.5 py-0.5 text-white/70">
-            {program.name}
+    <article className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-surface transition hover:border-white/30 hover:bg-surface-2">
+      {event.images && event.images.length > 0 && (
+        <img
+          src={event.images[0].url}
+          alt={event.images[0].alt}
+          className="aspect-square w-full object-cover"
+        />
+      )}
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-white/50">
+          <span>
+            {date.toLocaleDateString("es-PE", { day: "2-digit", month: "short", year: "numeric" })}
           </span>
+          {event.time !== "00:00" && <span>· {event.time}</span>}
+          {event.is_external && (
+            <span className="rounded-sm bg-accent/20 px-1.5 py-0.5 text-accent">[EXTERNO]</span>
+          )}
+          {program && (
+            <span className="rounded-sm border border-white/15 px-1.5 py-0.5 text-white/70">
+              {program.name}
+            </span>
+          )}
+        </div>
+        <h3 className="mt-3 text-lg font-semibold text-white">{event.title}</h3>
+        {event.description && (
+          <p className="mt-1 line-clamp-3 text-sm text-white/60">{event.description}</p>
+        )}
+        <div className="mt-3 flex flex-wrap items-center gap-2 font-mono text-xs text-white/40">
+          <span className="rounded-sm border border-white/10 px-1.5 py-0.5">{event.type}</span>
+          <span>
+            {event.city}, {event.region}
+          </span>
+        </div>
+        {event.tags.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1">
+            {event.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+        {event.registration_url && (
+          <a
+            href={event.registration_url}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-4 inline-flex w-fit items-center gap-1 text-sm text-accent hover:underline"
+          >
+            Registrarse →
+          </a>
         )}
       </div>
-      <h3 className="mt-3 text-lg font-semibold text-white">{event.title}</h3>
-      {event.description && <p className="mt-1 text-sm text-white/60">{event.description}</p>}
-      <div className="mt-3 flex flex-wrap items-center gap-2 font-mono text-xs text-white/40">
-        {event.location && <span>@ {event.location}</span>}
-        <span className="rounded-sm border border-white/10 px-1.5 py-0.5">{event.type}</span>
-        <span>
-          {event.city}, {event.region}
-        </span>
-      </div>
-      {event.tags.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-1">
-          {event.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-      {event.registration_url && (
-        <a
-          href={event.registration_url}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-4 inline-flex w-fit items-center gap-1 text-sm text-accent hover:underline"
-        >
-          Registrarse →
-        </a>
-      )}
     </article>
   );
 }
