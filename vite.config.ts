@@ -1,17 +1,7 @@
-import { defineConfig } from "vite";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import tailwindcss from "@tailwindcss/vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  plugins: [
-    tanstackStart({
-      server: { entry: "server" },
-    }),
-    tailwindcss(),
-    tsconfigPaths(),
-  ],
-  server: {
-    port: 3000,
+  tanstackStart: {
+    server: { entry: "server" },
   },
 });
