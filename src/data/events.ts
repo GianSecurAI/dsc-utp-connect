@@ -75,4 +75,29 @@ export const events: IEvent[] = [
     program_id: "5",
     is_external: false,
   },
+  {
+    id: "e4",
+    title: "Kubernetes Community Days Lima 2026",
+    description:
+      "Kubernetes Community Days Lima reúne a entusiastas y profesionales para fortalecer la comunidad Cloud Native en Perú y LATAM. Es un espacio para compartir conocimientos, experiencias y tendencias en tecnologías de contenedores y gestión de clusters.",
+    date: "2026-07-18",
+    time: "08:30",
+    location: "Universidad de Ingeniería y Tecnología - UTEC, Barranco",
+    city: "Lima",
+    region: "Lima",
+    type: "Presencial",
+    images: [
+      {
+        url: "https://pbs.twimg.com/profile_images/1517172081702588417/W-p_nI0-_400x400.jpg",
+        aspectRatio: "1:1",
+        alt: "Kubernetes Community Days Lima 2026",
+      },
+    ],
+    registration_url:
+      "https://www.eventbrite.com/e/kubernetes-community-days-lima-2026-tickets-1984982787953",
+    tags: ["kubernetes", "cloud-native", "devops"],
+    organizer: "KCD Lima Peru",
+    program_id: null,
+    is_external: true,
+  },
 ];
