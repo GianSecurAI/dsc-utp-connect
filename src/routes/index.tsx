@@ -31,12 +31,15 @@ function Index() {
             [DSC UTP] · Lima, Perú
           </span>
           <h1 className="mt-5 text-5xl font-extrabold leading-[1.05] tracking-tight text-white md:text-7xl">
-            Developer<br />Student Clubs<br />
+            Developer
+            <br />
+            Student Clubs
+            <br />
             <span className="text-accent">UTP</span>
           </h1>
           <p className="mt-6 max-w-md text-lg text-white/70">
-            La comunidad estudiantil de tecnología de la Universidad Tecnológica del Perú.
-            Aprende, construye y conecta con quienes están moviendo la industria.
+            La comunidad estudiantil de tecnología de la Universidad Tecnológica del Perú. Aprende,
+            construye y conecta con quienes están moviendo la industria.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
@@ -70,16 +73,18 @@ function Index() {
 
       {/* QUIENES SOMOS */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <span className="font-mono text-xs uppercase tracking-widest text-white/50">[Q] Quiénes somos</span>
+        <span className="font-mono text-xs uppercase tracking-widest text-white/50">
+          [Q] Quiénes somos
+        </span>
         <div className="mt-4 grid gap-10 md:grid-cols-3">
           <h2 className="text-3xl font-bold text-white md:col-span-1 md:text-4xl">
             Una comunidad por y para estudiantes de tecnología.
           </h2>
           <div className="md:col-span-2">
             <p className="text-lg text-white/70">
-              DSC UTP reúne a estudiantes apasionados por el desarrollo, la nube, la IA, los datos y el diseño.
-              Organizamos study jams, hackatones, charlas con la industria y proyectos open source para que
-              ningún estudiante de la UTP se quede fuera del ecosistema tech.
+              DSC UTP reúne a estudiantes apasionados por el desarrollo, la nube, la IA, los datos y
+              el diseño. Organizamos study jams, hackatones, charlas con la industria y proyectos
+              open source para que ningún estudiante de la UTP se quede fuera del ecosistema tech.
             </p>
             <div className="mt-8 grid grid-cols-3 gap-4 font-mono">
               <Stat label="Miembros activos" value="500+" />
@@ -94,7 +99,9 @@ function Index() {
       <section id="programas" className="mx-auto max-w-7xl px-6 py-20">
         <div className="flex items-end justify-between">
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-white/50">[P] Nuestros Programas</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-white/50">
+              [P] Nuestros Programas
+            </span>
             <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
               {data.programs.length} programas para crecer.
             </h2>
@@ -109,25 +116,27 @@ function Index() {
 
       {/* JUNTA */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <span className="font-mono text-xs uppercase tracking-widest text-white/50">[J] Junta Directiva</span>
-        <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Los que mueven la comunidad.</h2>
+        <span className="font-mono text-xs uppercase tracking-widest text-white/50">
+          [J] Junta Directiva
+        </span>
+        <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
+          Los que mueven la comunidad.
+        </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {data.board.map((m) => (
-            <MemberCard
-              key={m.id}
-              name={m.name}
-              role={m.role}
-              bio={m.bio}
-              socials={m.socials}
-            />
+            <MemberCard key={m.id} name={m.name} role={m.role} bio={m.bio} socials={m.socials} />
           ))}
         </div>
       </section>
 
       {/* ALIADOS */}
       <section id="aliados" className="mx-auto max-w-7xl px-6 py-20">
-        <span className="font-mono text-xs uppercase tracking-widest text-white/50">[A] Aliados</span>
-        <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Construimos con la industria.</h2>
+        <span className="font-mono text-xs uppercase tracking-widest text-white/50">
+          [A] Aliados
+        </span>
+        <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
+          Construimos con la industria.
+        </h2>
         <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-3 lg:grid-cols-5">
           {data.partners.map((p) => (
             <a
@@ -147,7 +156,9 @@ function Index() {
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="flex items-end justify-between">
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-white/50">[E] Próximos Eventos</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-white/50">
+              [E] Próximos Eventos
+            </span>
             <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Lo que se viene.</h2>
           </div>
           <Link

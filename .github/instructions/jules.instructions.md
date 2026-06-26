@@ -1,6 +1,6 @@
 ---
 description: Instrucciones para el agente Jules al procesar issues de contenido
-applyTo: '**'
+applyTo: "**"
 ---
 
 # Instrucciones para el Agente Jules
@@ -8,6 +8,7 @@ applyTo: '**'
 ## Tu rol
 
 Eres un agente que procesa issues con la label `jules`. Tu tarea es:
+
 1. Leer el issue y extraer la URL principal
 2. Visitar esa URL y extraer toda la información disponible
 3. Mapear los datos al modelo TypeScript correspondiente (ver carpeta `src/models/`)
@@ -23,12 +24,12 @@ Eres un agente que procesa issues con la label `jules`. Tu tarea es:
 
 ## Archivos de datos y sus modelos
 
-| Archivo de datos | Modelo | Tipo de issue |
-|---|---|---|
-| `src/data/events.ts` | `src/models/event.model.ts` (IEvent) | [Evento] |
-| `src/data/jobs.ts` | `src/models/job.model.ts` (IJob) | [Empleo] |
-| `src/data/projects.ts` | `src/models/project.model.ts` (IProject) | [Proyecto] |
-| `src/data/communities.ts` | `src/models/community.model.ts` (ICommunity) | [Comunidad] |
+| Archivo de datos          | Modelo                                       | Tipo de issue |
+| ------------------------- | -------------------------------------------- | ------------- |
+| `src/data/events.ts`      | `src/models/event.model.ts` (IEvent)         | [Evento]      |
+| `src/data/jobs.ts`        | `src/models/job.model.ts` (IJob)             | [Empleo]      |
+| `src/data/projects.ts`    | `src/models/project.model.ts` (IProject)     | [Proyecto]    |
+| `src/data/communities.ts` | `src/models/community.model.ts` (ICommunity) | [Comunidad]   |
 
 ## Reglas de extracción de imágenes (eventos)
 
@@ -41,6 +42,7 @@ Eres un agente que procesa issues con la label `jules`. Tu tarea es:
 ## Validación de duplicados
 
 Antes de agregar, verifica que no exista en el archivo de datos un registro con:
+
 - **Eventos:** mismo `title` Y misma `date`
 - **Empleos:** misma `apply_url`
 - **Proyectos:** mismo `repo_url`
@@ -67,21 +69,21 @@ Si hay duplicado: cierra el issue con un comentario explicando el duplicado enco
 
 ## Reglas de validación
 
-| Campo | Regla |
-|---|---|
-| `date` (eventos) | Mayor o igual a hoy. Formato `YYYY-MM-DD` |
-| `time` (eventos) | Formato `HH:MM` en 24h |
-| `registration_url` (eventos) | URL válida con protocolo `https://` |
-| `images` (eventos) | Mínimo 1 imagen. Si hay 2, deben tener aspectos diferentes |
-| `region` | Obligatorio. Valor de lista conocida o "Internacional" |
-| `tags` | Minúsculas, sin acentos, entre 1 y 5 |
-| `organizer` (eventos) | Obligatorio |
-| `apply_url` (empleos) | URL funcional |
-| `posted_date` (empleos) | No puede ser una fecha futura |
-| `expires_date` (empleos) | Si existe, posterior a `posted_date` |
-| `repo_url` (proyectos) | URL de GitHub válida con protocolo `https://` |
-| `year` (proyectos) | Número de 4 dígitos, no puede ser futuro |
-| `members` (proyectos) | Al menos 1 integrante. Formato: `{ name, role }` |
+| Campo                        | Regla                                                      |
+| ---------------------------- | ---------------------------------------------------------- |
+| `date` (eventos)             | Mayor o igual a hoy. Formato `YYYY-MM-DD`                  |
+| `time` (eventos)             | Formato `HH:MM` en 24h                                     |
+| `registration_url` (eventos) | URL válida con protocolo `https://`                        |
+| `images` (eventos)           | Mínimo 1 imagen. Si hay 2, deben tener aspectos diferentes |
+| `region`                     | Obligatorio. Valor de lista conocida o "Internacional"     |
+| `tags`                       | Minúsculas, sin acentos, entre 1 y 5                       |
+| `organizer` (eventos)        | Obligatorio                                                |
+| `apply_url` (empleos)        | URL funcional                                              |
+| `posted_date` (empleos)      | No puede ser una fecha futura                              |
+| `expires_date` (empleos)     | Si existe, posterior a `posted_date`                       |
+| `repo_url` (proyectos)       | URL de GitHub válida con protocolo `https://`              |
+| `year` (proyectos)           | Número de 4 dígitos, no puede ser futuro                   |
+| `members` (proyectos)        | Al menos 1 integrante. Formato: `{ name, role }`           |
 
 ## Procesamiento especial para issues de tipo [Proyecto]
 
@@ -89,18 +91,18 @@ A diferencia de otros tipos, los proyectos **no requieren visitar una URL extern
 
 ### Mapeo de campos del issue al modelo `IProject`
 
-| Campo del issue | Campo en IProject | Notas |
-|---|---|---|
-| `project_name` | `name` | Usar exactamente como se escribió |
-| `repo_url` | `repo_url` | Verificar que empiece con `https://github.com/` |
-| `demo_url` | `demo_url` | Opcional; omitir la clave si está vacío |
-| `summary` | `summary` | Truncar a 150 caracteres si excede |
-| `description` | `description` | Usar tal cual |
-| `members` | `members[]` | Parsear línea a línea con formato `Nombre | Rol` → `{ name, role }` |
-| `tags` | `tags[]` | Dividir por coma, normalizar a minúsculas sin acentos, máximo 5 |
-| `program_id` | `program_id` | Extraer solo el número del inicio: "1 — DSC Web" → `"1"`. Si es "Sin programa específico" → omitir la clave |
-| `status` | `status` | Usar el valor exacto: `"activo"`, `"completado"` o `"pausado"` |
-| `year` | `year` | Convertir a número entero |
+| Campo del issue | Campo en IProject | Notas                                                                                                       |
+| --------------- | ----------------- | ----------------------------------------------------------------------------------------------------------- | --------------------- |
+| `project_name`  | `name`            | Usar exactamente como se escribió                                                                           |
+| `repo_url`      | `repo_url`        | Verificar que empiece con `https://github.com/`                                                             |
+| `demo_url`      | `demo_url`        | Opcional; omitir la clave si está vacío                                                                     |
+| `summary`       | `summary`         | Truncar a 150 caracteres si excede                                                                          |
+| `description`   | `description`     | Usar tal cual                                                                                               |
+| `members`       | `members[]`       | Parsear línea a línea con formato `Nombre                                                                   | Rol`→`{ name, role }` |
+| `tags`          | `tags[]`          | Dividir por coma, normalizar a minúsculas sin acentos, máximo 5                                             |
+| `program_id`    | `program_id`      | Extraer solo el número del inicio: "1 — DSC Web" → `"1"`. Si es "Sin programa específico" → omitir la clave |
+| `status`        | `status`          | Usar el valor exacto: `"activo"`, `"completado"` o `"pausado"`                                              |
+| `year`          | `year`            | Convertir a número entero                                                                                   |
 
 ### Generación del objeto final
 
