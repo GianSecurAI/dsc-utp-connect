@@ -1,4 +1,4 @@
-export type ProjectStatus = 'activo' | 'pausado' | 'completado';
+export type ProjectStatus = "activo" | "pausado" | "completado";
 
 export interface IProjectMember {
   name: string;

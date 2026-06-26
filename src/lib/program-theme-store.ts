@@ -21,7 +21,10 @@ export function setTheme(t: ProgramTheme | null) {
 
 export function useProgramTheme(): ProgramTheme | null {
   return useSyncExternalStore(
-    (cb) => { _subs.add(cb); return () => _subs.delete(cb); },
+    (cb) => {
+      _subs.add(cb);
+      return () => _subs.delete(cb);
+    },
     () => _theme,
     () => null,
   );

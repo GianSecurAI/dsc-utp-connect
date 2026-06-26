@@ -35,7 +35,9 @@ function CommunitiesPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
-      <span className="font-mono text-xs uppercase tracking-widest text-white/50">[C] Comunidades</span>
+      <span className="font-mono text-xs uppercase tracking-widest text-white/50">
+        [C] Comunidades
+      </span>
       <h1 className="mt-3 text-5xl font-extrabold tracking-tight text-white md:text-6xl">
         Comunidades
       </h1>
@@ -68,7 +70,10 @@ function CommunitiesPage() {
             ))}
             {(regionFilter || query) && (
               <button
-                onClick={() => { setRegionFilter(""); setQuery(""); }}
+                onClick={() => {
+                  setRegionFilter("");
+                  setQuery("");
+                }}
                 className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/50 hover:text-white"
               >
                 Limpiar filtros
@@ -80,7 +85,9 @@ function CommunitiesPage() {
 
       <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filtered.length === 0 ? (
-          <p className="col-span-full text-white/50">No hay comunidades que coincidan con los filtros.</p>
+          <p className="col-span-full text-white/50">
+            No hay comunidades que coincidan con los filtros.
+          </p>
         ) : (
           filtered.map((c) => <CommunityCard key={c.id} community={c} />)
         )}

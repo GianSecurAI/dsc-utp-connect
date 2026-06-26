@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import type { EventItem, Program, IJob, IProject, ICommunity } from "@/lib/dsc.functions";
 
 export function EventCard({ event, program }: { event: EventItem; program?: Program }) {
@@ -13,13 +8,17 @@ export function EventCard({ event, program }: { event: EventItem; program?: Prog
   return (
     <article className="group flex flex-col rounded-xl border border-white/10 bg-surface p-5 transition hover:border-white/30 hover:bg-surface-2">
       <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-white/50">
-        <span>{date.toLocaleDateString("es-PE", { day: "2-digit", month: "short", year: "numeric" })}</span>
+        <span>
+          {date.toLocaleDateString("es-PE", { day: "2-digit", month: "short", year: "numeric" })}
+        </span>
         {event.time !== "00:00" && <span>· {event.time}</span>}
         {event.is_external && (
           <span className="rounded-sm bg-accent/20 px-1.5 py-0.5 text-accent">[EXTERNO]</span>
         )}
         {program && (
-          <span className="rounded-sm border border-white/15 px-1.5 py-0.5 text-white/70">{program.name}</span>
+          <span className="rounded-sm border border-white/15 px-1.5 py-0.5 text-white/70">
+            {program.name}
+          </span>
         )}
       </div>
       <h3 className="mt-3 text-lg font-semibold text-white">{event.title}</h3>
@@ -27,12 +26,17 @@ export function EventCard({ event, program }: { event: EventItem; program?: Prog
       <div className="mt-3 flex flex-wrap items-center gap-2 font-mono text-xs text-white/40">
         {event.location && <span>@ {event.location}</span>}
         <span className="rounded-sm border border-white/10 px-1.5 py-0.5">{event.type}</span>
-        <span>{event.city}, {event.region}</span>
+        <span>
+          {event.city}, {event.region}
+        </span>
       </div>
       {event.tags.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1">
           {event.tags.map((tag) => (
-            <span key={tag} className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50">
+            <span
+              key={tag}
+              className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50"
+            >
               {tag}
             </span>
           ))}
@@ -63,7 +67,12 @@ export function MemberCard({
   bio?: string | null;
   socials?: Record<string, string>;
 }) {
-  const initials = name.split(" ").map((s) => s[0]).slice(0, 2).join("").toUpperCase();
+  const initials = name
+    .split(" ")
+    .map((s) => s[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
   return (
     <div className="rounded-xl border border-white/10 bg-surface p-5">
       <div className="flex items-center gap-3">
@@ -123,13 +132,18 @@ export function JobCard({ job }: { job: IJob }) {
       <p className="mt-1 text-sm font-medium text-white/70">{job.company}</p>
       <p className="mt-2 line-clamp-3 text-sm text-white/60">{job.description}</p>
       <div className="mt-3 font-mono text-xs text-white/40">
-        <span>{job.location}, {job.region}</span>
+        <span>
+          {job.location}, {job.region}
+        </span>
         {job.salary_range && <span> · {job.salary_range}</span>}
       </div>
       {job.tags.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1">
           {job.tags.map((tag) => (
-            <span key={tag} className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50">
+            <span
+              key={tag}
+              className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50"
+            >
               {tag}
             </span>
           ))}
@@ -178,7 +192,10 @@ export function ProjectCard({ project, program }: { project: IProject; program?:
         {project.members.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1">
             {project.members.map((m) => (
-              <span key={m.name} className="rounded-full bg-white/5 px-2 py-0.5 font-mono text-[10px] text-white/50">
+              <span
+                key={m.name}
+                className="rounded-full bg-white/5 px-2 py-0.5 font-mono text-[10px] text-white/50"
+              >
                 {m.name}
               </span>
             ))}
@@ -187,7 +204,10 @@ export function ProjectCard({ project, program }: { project: IProject; program?:
         {project.tags.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1">
             {project.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/40">
+              <span
+                key={tag}
+                className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/40"
+              >
                 #{tag}
               </span>
             ))}
@@ -205,14 +225,10 @@ export function ProjectCard({ project, program }: { project: IProject; program?:
               <span className={`rounded-sm px-1.5 py-0.5 ${statusStyles[project.status]}`}>
                 {project.status}
               </span>
-              {program && (
-                <span className="text-white/50">{program.name}</span>
-              )}
+              {program && <span className="text-white/50">{program.name}</span>}
               <span className="ml-auto text-white/30">{project.year}</span>
             </div>
-            <DialogTitle className="mt-2 text-xl font-bold text-white">
-              {project.name}
-            </DialogTitle>
+            <DialogTitle className="mt-2 text-xl font-bold text-white">{project.name}</DialogTitle>
           </DialogHeader>
 
           <p className="text-sm text-white/70">{project.description}</p>
@@ -233,7 +249,10 @@ export function ProjectCard({ project, program }: { project: IProject; program?:
           {project.tags.length > 0 && (
             <div className="flex flex-wrap gap-1">
               {project.tags.map((tag) => (
-                <span key={tag} className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50">
+                <span
+                  key={tag}
+                  className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50"
+                >
                   #{tag}
                 </span>
               ))}
@@ -277,14 +296,19 @@ export function CommunityCard({ community }: { community: ICommunity }) {
         />
         <div>
           <h3 className="text-lg font-semibold text-white">{community.name}</h3>
-          <p className="font-mono text-xs text-white/40">{community.city}, {community.region}</p>
+          <p className="font-mono text-xs text-white/40">
+            {community.city}, {community.region}
+          </p>
         </div>
       </div>
       <p className="mt-3 line-clamp-3 text-sm text-white/60">{community.description}</p>
       {community.topics.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1">
           {community.topics.map((topic) => (
-            <span key={topic} className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50">
+            <span
+              key={topic}
+              className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50"
+            >
               {topic}
             </span>
           ))}
@@ -292,16 +316,44 @@ export function CommunityCard({ community }: { community: ICommunity }) {
       )}
       <div className="mt-3 flex flex-wrap gap-3 font-mono text-xs text-white/40">
         {community.contact.website && (
-          <a href={community.contact.website} target="_blank" rel="noreferrer" className="hover:text-white">web</a>
+          <a
+            href={community.contact.website}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-white"
+          >
+            web
+          </a>
         )}
         {community.contact.socialMedia.github && (
-          <a href={community.contact.socialMedia.github} target="_blank" rel="noreferrer" className="hover:text-white">github</a>
+          <a
+            href={community.contact.socialMedia.github}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-white"
+          >
+            github
+          </a>
         )}
         {community.contact.socialMedia.discord && (
-          <a href={community.contact.socialMedia.discord} target="_blank" rel="noreferrer" className="hover:text-white">discord</a>
+          <a
+            href={community.contact.socialMedia.discord}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-white"
+          >
+            discord
+          </a>
         )}
         {community.contact.socialMedia.linkedin && (
-          <a href={community.contact.socialMedia.linkedin} target="_blank" rel="noreferrer" className="hover:text-white">linkedin</a>
+          <a
+            href={community.contact.socialMedia.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-white"
+          >
+            linkedin
+          </a>
         )}
       </div>
     </article>

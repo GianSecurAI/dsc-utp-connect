@@ -29,7 +29,12 @@ function JobsPage() {
   const filtered = data.jobs.filter((j) => {
     if (typeFilter && j.type !== typeFilter) return false;
     if (modalityFilter && j.modality !== modalityFilter) return false;
-    if (query && !j.title.toLowerCase().includes(query.toLowerCase()) && !j.company.toLowerCase().includes(query.toLowerCase())) return false;
+    if (
+      query &&
+      !j.title.toLowerCase().includes(query.toLowerCase()) &&
+      !j.company.toLowerCase().includes(query.toLowerCase())
+    )
+      return false;
     return true;
   });
 
@@ -80,7 +85,11 @@ function JobsPage() {
           ))}
           {(typeFilter || modalityFilter || query) && (
             <button
-              onClick={() => { setTypeFilter(""); setModalityFilter(""); setQuery(""); }}
+              onClick={() => {
+                setTypeFilter("");
+                setModalityFilter("");
+                setQuery("");
+              }}
               className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/50 hover:text-white"
             >
               Limpiar filtros
@@ -91,7 +100,9 @@ function JobsPage() {
 
       <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filtered.length === 0 ? (
-          <p className="col-span-full text-white/50">No hay ofertas que coincidan con los filtros.</p>
+          <p className="col-span-full text-white/50">
+            No hay ofertas que coincidan con los filtros.
+          </p>
         ) : (
           filtered.map((j) => <JobCard key={j.id} job={j} />)
         )}
