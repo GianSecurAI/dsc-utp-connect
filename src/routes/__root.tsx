@@ -75,6 +75,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "DSC UTP — Developer Student Clubs UTP" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "DSC UTP — Developer Student Clubs UTP" },
+      { property: "og:description", content: "Comunidad estudiantil de tecnología en la UTP." },
+      { name: "twitter:description", content: "Comunidad estudiantil de tecnología en la UTP." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/zJHN5FwPlXNHw6k6zwD4x5fXZGJ2/social-images/social-1782481312052-IMG-20260606-WA0327.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/zJHN5FwPlXNHw6k6zwD4x5fXZGJ2/social-images/social-1782481312052-IMG-20260606-WA0327.webp" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
