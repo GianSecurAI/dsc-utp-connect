@@ -39,6 +39,36 @@ Eres un agente que procesa issues con la label `jules`. Tu tarea es:
 - Si solo hay una imagen, agrégala con el aspecto que mejor corresponda a sus dimensiones
 - `alt` debe describir brevemente la imagen en español
 
+### CDNs que bloquean hotlinking — copiar imagen al repo
+
+Algunos dominios bloquean que su imagen se cargue desde otros sitios web. Si la URL de la imagen pertenece a alguno de estos dominios (o similares), **no la uses directamente**:
+
+- `pbs.twimg.com` / `abs.twimg.com` (Twitter / X)
+- `scontent.*.fbcdn.net` / `*.fbcdn.net` (Facebook / Instagram)
+- `media.licdn.com` (LinkedIn)
+- `lh3.googleusercontent.com` (Google)
+- `*.eventbrite.com` (Eventbrite)
+
+**Procedimiento obligatorio cuando la imagen proviene de estos dominios:**
+
+1. Descarga la imagen con `curl`:
+   ```bash
+   curl -L -o public/events/{event-id}.{ext} "{url-de-la-imagen}"
+   ```
+   Usa como `{event-id}` el mismo `id` UUID que generaste para el evento. Determina la extensión (`jpg`, `png`, `webp`) según el contenido real de la imagen.
+2. Incluye el archivo `public/events/{event-id}.{ext}` en el commit junto al cambio en `src/data/events.ts`.
+3. En el campo `url` del objeto imagen, usa la ruta relativa:
+   ```ts
+   url: "/events/{event-id}.{ext}",
+   ```
+
+**Dominios confiables que sí permiten hotlinking** (no requieren copia):
+- `images.lumacdn.com`
+- `res.cloudinary.com`
+- `i.imgur.com` / `imgur.com`
+- `images.unsplash.com`
+- `*.supabase.co`
+
 ## Validación de duplicados
 
 Antes de agregar, verifica que no exista en el archivo de datos un registro con:
