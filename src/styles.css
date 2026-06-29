@@ -44,34 +44,34 @@
 :root {
   --radius: 0.5rem;
 
-  /* Deep electric blue palette inspired by /dev/notion */
-  --background: oklch(0.32 0.22 268); /* deep electric blue */
+  /* Dark navy palette */
+  --background: oklch(0.13 0.06 265); /* very dark navy ~#07101f */
   --foreground: oklch(0.98 0.01 250); /* near-white */
-  --surface: oklch(0.28 0.21 268); /* darker card */
-  --surface-2: oklch(0.24 0.19 268);
+  --surface: oklch(0.17 0.08 265);    /* dark navy card ~#0d1830 */
+  --surface-2: oklch(0.21 0.09 265);  /* slightly lighter */
 
-  --card: oklch(0.28 0.21 268);
+  --card: oklch(0.17 0.08 265);
   --card-foreground: oklch(0.98 0.01 250);
-  --popover: oklch(0.24 0.19 268);
+  --popover: oklch(0.21 0.09 265);
   --popover-foreground: oklch(0.98 0.01 250);
 
-  --primary: oklch(0.98 0.01 250); /* white as primary on blue */
-  --primary-foreground: oklch(0.28 0.22 268);
-  --brand: oklch(0.32 0.22 268);
+  --primary: oklch(0.55 0.25 262);    /* bright blue ~#2563eb */
+  --primary-foreground: oklch(0.98 0.01 250);
+  --brand: oklch(0.55 0.25 262);
   --brand-foreground: oklch(0.98 0.01 250);
 
-  --secondary: oklch(0.36 0.2 268);
+  --secondary: oklch(0.22 0.09 265);
   --secondary-foreground: oklch(0.98 0.01 250);
-  --muted: oklch(0.36 0.18 268);
-  --muted-foreground: oklch(0.82 0.05 250);
-  --accent: oklch(0.85 0.12 250); /* light blue accent */
-  --accent-foreground: oklch(0.28 0.22 268);
+  --muted: oklch(0.22 0.07 265);
+  --muted-foreground: oklch(0.72 0.05 255);
+  --accent: oklch(0.55 0.25 262);     /* bright blue accent */
+  --accent-foreground: oklch(0.98 0.01 250);
   --destructive: oklch(0.65 0.22 25);
   --destructive-foreground: oklch(0.98 0.01 250);
 
-  --border: oklch(1 0 0 / 14%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.85 0.12 250);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.55 0.25 262);
 }
 
 .dark {
