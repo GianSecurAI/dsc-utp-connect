@@ -55,23 +55,23 @@
   --popover: oklch(0.21 0.09 265);
   --popover-foreground: oklch(0.98 0.01 250);
 
-  --primary: oklch(0.55 0.25 262);    /* bright blue ~#2563eb */
+  --primary: oklch(0.60 0.26 258);    /* vivid blue ~#2d6ae0 */
   --primary-foreground: oklch(0.98 0.01 250);
-  --brand: oklch(0.55 0.25 262);
+  --brand: oklch(0.60 0.26 258);
   --brand-foreground: oklch(0.98 0.01 250);
 
   --secondary: oklch(0.22 0.09 265);
   --secondary-foreground: oklch(0.98 0.01 250);
   --muted: oklch(0.22 0.07 265);
   --muted-foreground: oklch(0.72 0.05 255);
-  --accent: oklch(0.55 0.25 262);     /* bright blue accent */
+  --accent: oklch(0.60 0.26 258);     /* vivid blue accent */
   --accent-foreground: oklch(0.98 0.01 250);
   --destructive: oklch(0.65 0.22 25);
   --destructive-foreground: oklch(0.98 0.01 250);
 
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.55 0.25 262);
+  --ring: oklch(0.60 0.26 258);
 }
 
 .dark {

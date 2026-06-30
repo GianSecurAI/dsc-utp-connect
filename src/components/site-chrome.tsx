@@ -30,7 +30,7 @@ export function SiteHeader() {
         </nav>
         <a
           href="#programas"
-          className="rounded-md border border-white/20 bg-white/5 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white hover:text-[oklch(0.28_0.22_268)]"
+          className="rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-white transition hover:opacity-90"
         >
           Únete
         </a>
